@@ -1,11 +1,9 @@
 <script>
-    let count = 0
-
-    function buttonClick() {
-        count++
-    }
+	import Chat from "../components/Chat.svelte";
+	import SideBar from "../components/SideBar.svelte";
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>You clicked the button {count} times </p>
-<button on:click={buttonClick}>Click me!</button>
+<div class="flex">
+    <SideBar />
+    <Chat />
+</div>
