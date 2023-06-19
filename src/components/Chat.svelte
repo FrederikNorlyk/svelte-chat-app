@@ -8,7 +8,7 @@
     <div class="grow">
         <ChatLog />
     </div>
-    <div class="flex space-x-3">
+    <div class="flex space-x-3 mt-5">
         <div class="grow">
             <TextField />
         </div>

@@ -1,4 +1,4 @@
-export class Contact {
+export class User {
 
     private name: string
     private online: boolean
