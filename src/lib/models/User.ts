@@ -1,17 +1,15 @@
-export class User {
+import { DatabaseRecord } from "$lib/models/DatabaseRecord"
+
+export class User extends DatabaseRecord {
 
     private name: string
     private online = false
     private image = ""
-    private id: number
 
     constructor(id: number, name: string) {
-        this.id = id
+        super(id)
+        
         this.name = name
-    }
-
-    public getId() {
-        return this.id
     }
 
     public getName() {

@@ -1,18 +1,10 @@
-import { POSTGRES_URL } from "$env/static/private";
 import { User } from "$lib/models/User";
-import { createPool, type QueryResultRow } from "@vercel/postgres";
+import type { QueryResultRow } from "@vercel/postgres";
+import { DatabaseClient } from "$lib/clients/DatabaseClient";
 
-export class UserClient {
+export class UserClient extends DatabaseClient<User> {
 
-    private pool
-
-    constructor() {
-        this.pool = createPool({
-            connectionString: POSTGRES_URL
-        });
-    }
-
-    public serialize(row: QueryResultRow) {
+    protected serialize(row: QueryResultRow) {
         return new User(row.id, row.name).serialize()
     }
 
@@ -28,7 +20,7 @@ export class UserClient {
         return this.serialize(row)
     }
 
-    public async get(name: string) {
+    public async getByName(name: string) {
         const result = await this.pool.sql `SELECT * FROM users WHERE name = ${name}`;
 
         if (result.rows.length == 0) {

@@ -1,14 +1,10 @@
 <script lang="ts">
-	import { Message } from "$lib/models/Message";
+	import type { Message } from "$lib/models/Message";
 
-    const messages = [
-        new Message(1, "Hi there!"),
-        new Message(2, "Hello 😊"),
-        new Message(1, "Looooong message with a lot of words goes here. Looooong message with a lot of words goes here. Looooong message with a lot of words goes here. Looooong message with a lot of words goes here. Looooong message with a lot of words goes here. "),
-    ]
+    export let messages: Message[];
 
     function isFromYou(message: Message) {
-        return message.getUserId() === 1
+        return message.getFromUserId() === 1
     }
 </script>
 
