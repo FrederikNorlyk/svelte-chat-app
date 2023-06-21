@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Message } from "../models/Message";
+	import { Message } from "$lib/models/Message";
 
     const messages = [
         new Message(1, "Hi there!"),

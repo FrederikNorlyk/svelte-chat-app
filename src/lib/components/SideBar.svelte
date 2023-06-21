@@ -1,11 +1,7 @@
 <script lang="ts">
-	import { User } from "../models/User";
+	import type { User } from "$lib/models/User";
 
-    const contacts = [
-        new User("Rachel Anders", true, "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=faceare&facepad=3&w=688&h=688&q=100"),
-        new User("James Dylan", false, "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&h=880&q=80"),
-        new User("John Appleseed", false, "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&h=687&q=80")
-    ]
+    export let users: User[]
 
     function isActive(contact: User) {
         return contact.getName().startsWith("Rachel")
@@ -34,9 +30,9 @@
     
     <div class="h-screen py-8 overflow-y-auto bg-white border-l border-r sm:w-64 w-60 dark:bg-gray-900 dark:border-gray-700">
         <h2 class="px-5 text-lg font-medium text-gray-800 dark:text-white">Chats</h2>
-
+        
         <div class="mt-8 space-y-4">
-            {#each contacts as contact}
+            {#each users as contact}
                 <button class="flex items-center w-full px-5 py-2 transition-colors duration-200 dark:hover:bg-gray-800 gap-x-2 hover:bg-gray-100 focus:outline-none">
                     <div class="relative">
                         {#if isActive(contact)}

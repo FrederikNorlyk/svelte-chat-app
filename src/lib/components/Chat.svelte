@@ -1,7 +1,7 @@
 <script>
-    import Button from "../components/Button.svelte";
-    import ChatLog from "../components/ChatLog.svelte";
-    import TextField from "../components/TextField.svelte";
+    import Button from "$lib/components/Button.svelte";
+    import ChatLog from "$lib/components/ChatLog.svelte";
+    import TextField from "$lib/components/TextField.svelte";
 </script>
 
 <div class="grow flex flex-col p-5">
