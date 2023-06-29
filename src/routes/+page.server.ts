@@ -1,8 +1,7 @@
 import { username, userId } from '$lib/stores/Session';
 import { UserClient } from '$lib/clients/UserClient.js';
-import { UsernameGenerator } from '$lib/utils/UsernameGenerator.js';
-import { User } from '$lib/models/User';
 import { MessageClient } from '$lib/clients/MessageClient';
+import { redirect } from '@sveltejs/kit';
 
 export async function load({ params }) {
     let usernameValue: string | null = null;
@@ -20,16 +19,7 @@ export async function load({ params }) {
     const messageClient = new MessageClient()
 
     if (!userIdValue) {
-        usernameValue = UsernameGenerator.generate();
-        
-        let user = await userClient.getByName(usernameValue)
-        if (user == null) {
-            user = await userClient.create(usernameValue)
-        }
-        userIdValue = User.parse(user).getId()
-
-        username.set(usernameValue);
-        userId.set(userIdValue)
+        throw redirect(307, '../login')
     }
 
     return {
