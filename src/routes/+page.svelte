@@ -59,8 +59,8 @@
 
         const response = await fetch('message?' + params)
         const json = await response.json()
-        const fetchedMessages = json.messages as string[]
-        return fetchedMessages.map((m) => Message.parse(m))
+        const messages = json.messages as string[]
+        return messages.map((m) => Message.parse(m))
     }
 </script>
 
