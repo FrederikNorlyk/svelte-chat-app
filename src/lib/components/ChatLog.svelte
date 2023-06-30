@@ -2,9 +2,10 @@
 	import type { Message } from "$lib/models/Message";
 
     export let messages: Message[];
+    export let currentUserId: number
 
     function isFromYou(message: Message) {
-        return message.getFromUserId() === 1
+        return message.getFromUserId() === currentUserId
     }
 </script>
 
