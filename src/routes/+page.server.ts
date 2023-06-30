@@ -3,7 +3,7 @@ import { UserClient } from '$lib/clients/UserClient.js';
 import { MessageClient } from '$lib/clients/MessageClient';
 import { redirect } from '@sveltejs/kit';
 
-export async function load({ params }) {
+export async function load() {
     let usernameValue: string | null = null;
     let userIdValue: number | null = null;
 

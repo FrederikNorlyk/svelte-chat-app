@@ -1,22 +1,35 @@
 <script lang="ts">
-	import Button from '$lib/components/Button.svelte';
 	import ChatLog from '$lib/components/ChatLog.svelte';
-	import TextField from '$lib/components/TextField.svelte';
 	import type { Message } from '$lib/models/Message';
 
-	export let messages: Message[];
+	export let messages: Message[]
+
+	let message: string
+
+	async function sendMessage() {
+        const response = await fetch('/message', {
+            method: 'POST',
+            body: JSON.stringify({ message }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+		const json = await response.json()
+		messages = [...messages, json.message]
+    }
 </script>
 
 <div class="grow flex flex-col p-5">
 	<div class="grow">
 		<ChatLog {messages} />
 	</div>
-	<div class="flex space-x-3 mt-5">
+	<form class="flex space-x-3 mt-5" on:submit|preventDefault={sendMessage}>
 		<div class="grow">
-			<TextField />
+			<input bind:value={message} type="text" name="me" id="message" autocomplete="off" class="grow block w-full rounded-md border-0 h-12 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"> 
 		</div>
 		<div>
-			<Button text="Send" />
+			<button type="submit" class="rounded-md bg-orange-600 h-12 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">Send</button>
 		</div>
-	</div>
+	</form>
 </div>

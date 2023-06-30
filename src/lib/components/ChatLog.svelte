@@ -9,7 +9,7 @@
 </script>
 
 <ul class="space-y-5">
-    {#each messages as message}
+    {#each messages as message (message.getId())}
         <li class="flex">
             {#if !isFromYou(message)}
                 <div class="grow"></div>

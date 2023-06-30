@@ -1,6 +1,5 @@
 import { UserClient } from '$lib/clients/UserClient.js';
 import { username, userId } from '$lib/stores/Session';
-import { redirect } from '@sveltejs/kit';
 
 export const actions: import('./$types').Actions = {
     default: async ({ request }) => {

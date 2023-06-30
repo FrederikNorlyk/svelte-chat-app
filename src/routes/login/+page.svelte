@@ -7,8 +7,6 @@
 
 	onMount(async () => {
 		if (data.status === 201 || form?.status == 201) {
-			console.log(data.status);
-			console.log(form?.status);
 			goto('../');
 		}
 	});
