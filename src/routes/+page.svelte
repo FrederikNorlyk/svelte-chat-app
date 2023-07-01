@@ -1,25 +1,25 @@
 <script lang="ts">
-	import ChatLog from '$lib/components/ChatLog.svelte';
-	import SideBar from '$lib/components/SideBar.svelte';
-	import { Message } from '$lib/models/Message.js';
-	import { User } from '$lib/models/User';
-	import { onMount } from 'svelte';
+	import ChatLog from '$lib/components/ChatLog.svelte'
+	import SideBar from '$lib/components/SideBar.svelte'
+	import { Message } from '$lib/models/Message.js'
+	import { User } from '$lib/models/User'
+	import { onMount } from 'svelte'
 
-	export let data;
+	export let data
 
-	const users = data.users.map((u) => User.parse(u));
-	let messages: Message[] = [];
-    let messageText: string;
-	let otherUserId = users.length > 0 ? users[0].getId() : -1;
-	let currentUserId = data.userId;
+	const users = data.users.map((u) => User.parse(u))
+	let messages: Message[] = []
+    let messageText: string
+	let otherUserId = users.length > 0 ? users[0].getId() : -1
+	let currentUserId = data.userId
 
 	async function sendMessage() {
 		if (!messageText || !messageText.trim()) {
-			return;
+			return
 		}
         
         const text = messageText
-        messageText = ''; // Clear the text instantly
+        messageText = '' // Clear the text instantly
 
 		const response = await fetch('/message', {
 			method: 'POST',
@@ -31,11 +31,11 @@
 			headers: {
 				'Content-Type': 'application/json'
 			}
-		});
+		})
 
-		const json = await response.json();
-		const newMessage = Message.parse(json.message);
-		messages = [...messages, newMessage];
+		const json = await response.json()
+		const newMessage = Message.parse(json.message)
+		messages = [...messages, newMessage]
 	}
 
 	onMount(async () => {
@@ -68,7 +68,7 @@
 	<SideBar {users} {onUserSelect} />
 
 	<div class="grow flex flex-col p-5">
-		<div class="grow">
+		<div class="grow h-1 overflow-auto">
 			<ChatLog {currentUserId} {messages} />
 		</div>
 		<form class="flex space-x-3 mt-5" on:submit|preventDefault={sendMessage}>

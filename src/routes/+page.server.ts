@@ -18,7 +18,7 @@ export async function load() {
     
     const userClient = new UserClient()
 
-    if (!userIdValue) {
+    if (userIdValue == -1) {
         throw redirect(307, '../login')
     }
 

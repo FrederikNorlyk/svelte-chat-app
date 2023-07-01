@@ -13,7 +13,7 @@ export class MessageClient extends DatabaseClient<Message> {
     }
 
     public async listMessagesBetween(userId1: number, userId2: number) {
-        const result = await this.pool.sql`SELECT * FROM messages WHERE from_user_id IN (${userId1}, ${userId2}) OR to_user_id IN (${userId1}, ${userId2})`;
+        const result = await this.pool.sql`SELECT * FROM messages WHERE from_user_id IN (${userId1}, ${userId2}) AND to_user_id IN (${userId1}, ${userId2})`;
 
         return result.rows.map((row) => this.serialize(row));
     }
