@@ -64,7 +64,7 @@
     }
 </script>
 
-<div class="flex">
+<div class="flex h-full">
 	<SideBar {users} {onUserSelect} />
 
 	<div class="grow flex flex-col p-5">

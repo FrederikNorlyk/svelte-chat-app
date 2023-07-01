@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
 	import type { User } from "$lib/models/User";
+	import UserList from "./UserList.svelte";
 
     export let users: User[]
     export let onUserSelect: (userId: number) => void
+    export let isExpanded = true
 
     let activeUserId = users.length > 0 ? users[0].getId() : -1
 
@@ -17,6 +19,7 @@
     
     function onClick(userId: number) {
         activeUserId = userId
+        isExpanded = false
         onUserSelect(userId)
     }
 </script>
@@ -27,11 +30,11 @@
             <img draggable="false" class="w-auto h-6" src="svelte-32.svg" alt="">
         </span>
 
-        <a draggable="false" href="#" class="p-1.5 text-orange-400 transition-colors duration-200 bg-orange-100 rounded-lg">
+        <button draggable="false" on:click={() => {isExpanded = !isExpanded}} class="p-1.5 text-orange-400 transition-colors duration-200 bg-orange-100 rounded-lg">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
             </svg>
-        </a>
+        </button>
 
         <a title="Log out" draggable="false" on:click|preventDefault={logout} href="." class="p-1.5 text-gray-500 focus:outline-nones transition-colors duration-200 rounded-lg dark:text-gray-400 dark:hover:bg-gray-800 hover:bg-gray-100">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -41,29 +44,7 @@
         </a>
     </div>
     
-    <div class="h-screen py-8 overflow-y-auto bg-white border-l border-r sm:w-64 w-60 dark:bg-gray-900 dark:border-gray-700">
-        <h2 class="px-5 text-lg font-medium text-gray-800 dark:text-white">Chats</h2>
-        
-        <div class="mt-8 space-y-4">
-            {#each users as user (user.getId())}
-                <button on:click={() => onClick(user.getId())} class="flex items-center w-full px-5 py-2 transition-colors duration-200 dark:hover:bg-gray-800 gap-x-2 hover:bg-gray-100 focus:outline-none">
-                    <div class="relative">
-                        {#if user.getId() == activeUserId}
-                            <span class="w-0.5 h-12 bg-orange-400 absolute -left-5 -top-2"></span>
-                        {/if}
-                        <img draggable="false" class="object-cover w-8 h-8 rounded-full" src="https://avatars.dicebear.com/api/identicon/{user.getName()}.svg" alt="Profile picture for {user.getName()}">
-                        {#if user.isOnline()}
-                            <span class="h-2 w-2 rounded-full bg-emerald-500 absolute right-0.5 ring-1 ring-white bottom-0"></span>
-                        {/if}
-                    </div>
-
-                    <div class="text-left rtl:text-right">
-                        <h1 class="text-sm font-medium text-gray-700 dark:text-white">{user.getName()}</h1>
-        
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Last seen 7 minutes ago</p>
-                    </div>
-                </button>
-            {/each}
-        </div>
+    <div class="{isExpanded ? 'block' : 'hidden'} md:block h-screen py-8 overflow-y-auto bg-white border-l border-r sm:w-64 w-60 dark:bg-gray-900 dark:border-gray-700">
+        <UserList {users} {activeUserId} onUserSelect={onClick} />
     </div>
 </aside>
