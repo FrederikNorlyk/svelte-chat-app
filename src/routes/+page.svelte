@@ -4,15 +4,14 @@
 	import SideBar from '$lib/components/SideBar.svelte'
 	import { Message } from '$lib/models/Message.js'
 	import { User } from '$lib/models/User'
+	import MessageStore from '$lib/stores/MessagesStore.js';
 	import { onMount } from 'svelte'
 
 	export let data
 
 	const users = data.users.map((u) => User.parse(u))
-	let messages: Message[] = []
     let messageText: string
 	let otherUserId = users.length > 0 ? users[0].getId() : -1
-	let currentUserId = $page.data.user.id
 
 	async function sendMessage() {
 		if (!messageText || !messageText.trim()) {
@@ -26,7 +25,7 @@
 			method: 'POST',
 			body: JSON.stringify({ 
                 message: text,
-                fromUserId: currentUserId,
+                fromUserId: $page.data.user.id,
                 toUserId: otherUserId
             }),
 			headers: {
@@ -36,25 +35,27 @@
 
 		const json = await response.json()
 		const newMessage = Message.parse(json.message)
-		messages = [...messages, newMessage]
+		MessageStore.update((currentData) => {
+			return [...currentData, newMessage]
+		})
 	}
 
 	onMount(async () => {
-		messages = await getMessages()
+		MessageStore.set(await getMessages())
 	});
 
 	async function onUserSelect(selectedUserId: number) {
         otherUserId = selectedUserId
-        messages = await getMessages()
+        MessageStore.set(await getMessages())
 	}
 
     async function getMessages() {
-        if (currentUserId == -1 || otherUserId == -1) {
+        if (otherUserId == -1) {
             return []
         }
 
         const params = new URLSearchParams({
-            'userId1': String(currentUserId).valueOf(), 
+            'userId1': String($page.data.user.id).valueOf(), 
             'userId2': String(otherUserId).valueOf()
         })
 
@@ -70,7 +71,7 @@
 
 	<div class="grow flex flex-col p-5">
 		<div class="grow h-1 overflow-auto">
-			<ChatLog {currentUserId} {messages} />
+			<ChatLog />
 		</div>
 		<form class="flex space-x-3 mt-5" on:submit|preventDefault={sendMessage}>
 			<div class="grow">

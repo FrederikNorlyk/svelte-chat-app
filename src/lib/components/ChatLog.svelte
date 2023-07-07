@@ -1,16 +1,15 @@
 <script lang="ts">
+	import { page } from "$app/stores";
 	import type { Message } from "$lib/models/Message";
-
-    export let messages: Message[];
-    export let currentUserId: number
+	import MessageStore from "$lib/stores/MessagesStore";
 
     function isFromYou(message: Message) {
-        return message.getFromUserId() === currentUserId
+        return message.getFromUserId() === $page.data.user.id
     }
 </script>
 
 <ul class="space-y-5">
-    {#each messages as message (message.getId())}
+    {#each $MessageStore as message (message.getId())}
         <li class="flex">
             {#if !isFromYou(message)}
                 <div class="grow"></div>
