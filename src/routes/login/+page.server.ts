@@ -1,8 +1,15 @@
 import { UserClient } from '$lib/clients/UserClient.js';
-import { username, userId } from '$lib/stores/Session';
+import { redirect } from '@sveltejs/kit';
+import type { PageServerLoad } from '../$types';
+
+export const load: PageServerLoad = async ({ locals }) => {
+    if (locals.user) {
+        throw redirect(302, '/')
+    }
+}
 
 export const actions: import('./$types').Actions = {
-    default: async ({ request }) => {
+    default: async ({ cookies, request }) => {
         const formData = await request.formData()
         const name = String(formData.get('name'))
         const client = new UserClient()
@@ -13,21 +20,34 @@ export const actions: import('./$types').Actions = {
             user = await client.create(name)
         }
 
-        userId.set(user.getId())
-        username.set(user.getName())
+        cookies.set('userId', String(user.getId()).valueOf(), {
+            // send cookie for every page
+            path: '/',
+            // server side only cookie so you can't use `document.cookie`
+            httpOnly: true,
+            // only requests from same site can send cookies
+            // https://developer.mozilla.org/en-US/docs/Glossary/CSRF
+            sameSite: 'strict',
+            // only sent over HTTPS in production
+            secure: process.env.NODE_ENV === 'production',
+            // set cookie to expire after a month
+            maxAge: 60 * 60 * 24 * 30,
+        })
 
-        return {status: 201}
-    }
-}
+        cookies.set('userName', String(user.getName()).valueOf(), {
+            // send cookie for every page
+            path: '/',
+            // server side only cookie so you can't use `document.cookie`
+            httpOnly: true,
+            // only requests from same site can send cookies
+            // https://developer.mozilla.org/en-US/docs/Glossary/CSRF
+            sameSite: 'strict',
+            // only sent over HTTPS in production
+            secure: process.env.NODE_ENV === 'production',
+            // set cookie to expire after a month
+            maxAge: 60 * 60 * 24 * 30,
+        })
 
-export async function load() {
-    let userIdValue: number | null = null;
-
-    userId.subscribe((value) => {
-        userIdValue = value;
-    });
-    
-    return {
-        status: userIdValue ? 201 : 401
+        throw redirect(302, '/')
     }
 }

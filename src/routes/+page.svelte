@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import ChatLog from '$lib/components/ChatLog.svelte'
 	import SideBar from '$lib/components/SideBar.svelte'
 	import { Message } from '$lib/models/Message.js'
@@ -11,7 +12,7 @@
 	let messages: Message[] = []
     let messageText: string
 	let otherUserId = users.length > 0 ? users[0].getId() : -1
-	let currentUserId = data.userId
+	let currentUserId = $page.data.user.id
 
 	async function sendMessage() {
 		if (!messageText || !messageText.trim()) {
