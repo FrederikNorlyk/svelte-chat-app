@@ -20,7 +20,7 @@
 				{/if}
 				<img
 					draggable="false"
-					class="object-cover w-8 h-8 rounded-full"
+					class="border border-slate-100 object-cover w-8 h-8 rounded-full"
 					src="https://avatars.dicebear.com/api/identicon/{user.getName()}.svg"
 					alt="Profile picture for {user.getName()}"
 				/>
