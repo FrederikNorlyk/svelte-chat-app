@@ -10,6 +10,10 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 export const actions: import('./$types').Actions = {
     default: async ({ cookies, request }) => {
+
+        // Unnecesary delay to show off my Svelte skills
+        await new Promise((fulfil) => setTimeout(fulfil, 1000));
+
         const formData = await request.formData()
         const name = String(formData.get('name'))
         const client = new UserClient()
