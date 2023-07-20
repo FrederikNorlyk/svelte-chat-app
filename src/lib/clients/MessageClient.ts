@@ -2,7 +2,7 @@ import type { QueryResultRow } from "@vercel/postgres";
 import { DatabaseClient } from "$lib/clients/DatabaseClient";
 import { Message } from "$lib/models/Message";
 
-export class MessageClient extends DatabaseClient<Message> {
+export class MessageClient extends DatabaseClient {
 
     private parse(row: QueryResultRow) {
         return new Message(row.id, row.date, row.from_user_id, row.to_user_id, row.text)

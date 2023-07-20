@@ -2,7 +2,7 @@ import { User } from "$lib/models/User";
 import type { QueryResultRow } from "@vercel/postgres";
 import { DatabaseClient } from "$lib/clients/DatabaseClient";
 
-export class UserClient extends DatabaseClient<User> {
+export class UserClient extends DatabaseClient {
 
     private parse(row: QueryResultRow) {
         return new User(row.id, row.name)
