@@ -14,31 +14,31 @@
 		"preinstall": "npx only-allow pnpm"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^2.0.0",
-		"@sveltejs/kit": "^1.5.0",
-		"@tailwindcss/forms": "^0.5.3",
-		"@typescript-eslint/eslint-plugin": "^5.60.0",
-		"@typescript-eslint/parser": "^5.60.0",
+		"@sveltejs/adapter-auto": "^2.1.0",
+		"@sveltejs/kit": "^1.22.3",
+		"@tailwindcss/forms": "^0.5.4",
+		"@typescript-eslint/eslint-plugin": "^5.62.0",
+		"@typescript-eslint/parser": "^5.62.0",
 		"autoprefixer": "^10.4.14",
-		"eslint": "^8.43.0",
-		"eslint-config-prettier": "^8.5.0",
-		"eslint-plugin-svelte": "^2.26.0",
-		"postcss": "^8.4.24",
+		"eslint": "^8.45.0",
+		"eslint-config-prettier": "^8.8.0",
+		"eslint-plugin-svelte": "^2.32.3",
+		"postcss": "^8.4.26",
 		"prettier": "^2.8.8",
-		"prettier-plugin-svelte": "^2.8.1",
+		"prettier-plugin-svelte": "^2.10.1",
 		"prettier-plugin-tailwindcss": "^0.4.1",
-		"svelte": "^3.54.0",
-		"svelte-check": "^3.0.1",
-		"tailwindcss": "^3.3.2",
-		"tslib": "^2.4.1",
-		"typescript": "^5.1.3",
-		"vite": "^4.3.0",
-		"vitest": "^0.25.3"
+		"svelte": "^3.59.2",
+		"svelte-check": "^3.4.6",
+		"tailwindcss": "^3.3.3",
+		"tslib": "^2.6.0",
+		"typescript": "^5.1.6",
+		"vite": "^4.4.5",
+		"vitest": "^0.25.8"
 	},
 	"type": "module",
 	"dependencies": {
-		"@sveltejs/adapter-vercel": "^3.0.1",
-		"@vercel/postgres": "^0.3.1",
-		"vercel": "^31.0.1"
+		"@sveltejs/adapter-vercel": "^3.0.2",
+		"@vercel/postgres": "^0.3.2",
+		"vercel": "^31.0.4"
 	}
 }
