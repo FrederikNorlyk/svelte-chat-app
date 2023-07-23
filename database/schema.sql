@@ -1,10 +1,10 @@
-CREATE TABLE users(
+CREATE TABLE chat_users(
    id INT GENERATED ALWAYS AS IDENTITY,
    name VARCHAR(255) NOT NULL UNIQUE,
    PRIMARY KEY(id)
 );
 
-CREATE TABLE messages(
+CREATE TABLE chat_messages(
    id INT GENERATED ALWAYS AS IDENTITY,
    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    from_user_id INT NOT NULL,
@@ -14,8 +14,8 @@ CREATE TABLE messages(
    PRIMARY KEY(id),
     CONSTRAINT fk_from_user
         FOREIGN KEY(from_user_id) 
-            REFERENCES users(id),
+            REFERENCES chat_users(id),
     CONSTRAINT fk_to_user
         FOREIGN KEY(to_user_id) 
-            REFERENCES users(id)
+            REFERENCES chat_users(id)
 );

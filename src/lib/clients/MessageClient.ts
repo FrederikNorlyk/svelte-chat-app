@@ -13,13 +13,13 @@ export class MessageClient extends DatabaseClient {
     }
 
     public async listMessagesBetween(userId1: number, userId2: number) {
-        const result = await this.pool.sql`SELECT * FROM messages WHERE from_user_id IN (${userId1}, ${userId2}) AND to_user_id IN (${userId1}, ${userId2})`;
+        const result = await this.pool.sql`SELECT * FROM chat_messages WHERE from_user_id IN (${userId1}, ${userId2}) AND to_user_id IN (${userId1}, ${userId2})`;
 
         return result.rows.map((row) => this.serialize(row));
     }
 
     public async create(fromUserId: number, toUserId: number, name: string) {
-        const result = await this.pool.query(`INSERT INTO messages (from_user_id, to_user_id, text) VALUES($1, $2, $3) RETURNING *`, [fromUserId, toUserId, name])
+        const result = await this.pool.query(`INSERT INTO chat_messages (from_user_id, to_user_id, text) VALUES($1, $2, $3) RETURNING *`, [fromUserId, toUserId, name])
         const row = result.rows[0]
         return this.parse(row)
     }
