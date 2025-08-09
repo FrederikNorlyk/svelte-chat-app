@@ -6,7 +6,7 @@ Simple chat app, built using SvelteKit.
 - Tailwind CSS
 
 ### What can it do?
-The application allows you to chat with any user on the system. Its more of a way for me to learn Svelte than an actual application. Hence the lack of authentication.
+The application allows you to chat with any user on the system. It was my first experiment with Svelte and not really an actual application. Hence the lack of authentication, web sockets, etc.
 
 ### Installation
 To link the application with you Vercel PostgreSQL database, run the follwing commands:
