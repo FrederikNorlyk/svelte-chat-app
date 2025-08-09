@@ -1,6 +1,8 @@
 ## Svelte chat app
 Simple chat app, built using SvelteKit.
 
+<img src="screenshot.png" alt="Screenshot of the app">
+
 ### Technologies
 - SvelteKit
 - Tailwind CSS
